@@ -11,6 +11,14 @@
     "chrome-devtools": {
       "command": "npx",
       "args": ["-y", "chrome-devtools-mcp@latest"]
+    },
+    "analytics-mcp": {
+      "command": "pipx",
+      "args": ["run", "analytics-mcp"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "REPLACE_WITH_ABS_PATH_TO_credentials.json",
+        "GOOGLE_PROJECT_ID": "REPLACE_WITH_YOUR_GCP_PROJECT_ID"
+      }
     }
   }
 }
