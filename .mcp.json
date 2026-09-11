@@ -5,7 +5,7 @@
       "args": ["run"],
       "env": {
         "GMC_ACCOUNT_ID": "5692443679",
-        "GMC_SERVICE_ACCOUNT_KEY": "REPLACE_WITH_ABS_PATH_TO_service-account.json"
+        "GMC_SERVICE_ACCOUNT_KEY": "E:\\Dropbox\\Vault\\Ziko\\project-6a7cfe55-5519-4c9d-ab7-e103b4a81062.json"
       }
     },
     "chrome-devtools": {
