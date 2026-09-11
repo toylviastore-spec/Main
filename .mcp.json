@@ -10,7 +10,7 @@
     },
     "chrome-devtools": {
       "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
+      "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect"]
     }
   }
 }
