@@ -4,13 +4,21 @@
       "command": "gmc-mcp",
       "args": ["run"],
       "env": {
-        "GMC_ACCOUNT_ID": "REPLACE_WITH_10_DIGIT_MERCHANT_CENTER_ID",
-        "GMC_SERVICE_ACCOUNT_KEY": "REPLACE_WITH_ABS_PATH_TO_service-account.json"
+        "GMC_ACCOUNT_ID": "${GMC_ACCOUNT_ID}",
+        "GMC_SERVICE_ACCOUNT_KEY": "${GMC_SERVICE_ACCOUNT_KEY}"
       }
     },
     "chrome-devtools": {
       "command": "C:\\Program Files\\nodejs\\npx.cmd",
       "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect"]
+    },
+    "analytics-mcp": {
+      "command": "pipx",
+      "args": ["run", "analytics-mcp"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}",
+        "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID}"
+      }
     }
   }
 }
