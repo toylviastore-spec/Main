@@ -19,6 +19,14 @@
         "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}",
         "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID}"
       }
+    },
+    "gsc": {
+      "command": "C:\\Users\\zikob\\.local\\bin\\uvx.exe",
+      "args": ["mcp-search-console"],
+      "env": {
+        "GSC_CREDENTIALS_PATH": "${GSC_CREDENTIALS_PATH}",
+        "GSC_SKIP_OAUTH": "true"
+      }
     }
   }
 }
