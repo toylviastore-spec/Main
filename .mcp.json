@@ -1,7 +1,7 @@
 {
   "mcpServers": {
-    "gmc": {
-      "command": "gmc-mcp",
+    "gmc-toylvia": {
+      "command": "C:\\gmc-mcp\\venv\\Scripts\\gmc-mcp.exe",
       "args": ["run"],
       "env": {
         "GMC_ACCOUNT_ID": "${GMC_ACCOUNT_ID}",
@@ -12,12 +12,11 @@
       "command": "C:\\Program Files\\nodejs\\npx.cmd",
       "args": ["-y", "chrome-devtools-mcp@latest"]
     },
-    "analytics-mcp": {
-      "command": "pipx",
-      "args": ["run", "analytics-mcp"],
+    "analytics-mcp-toylvia": {
+      "command": "C:\\analytics-mcp\\venv\\Scripts\\analytics-mcp.exe",
       "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}",
-        "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID}"
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS_ANALYTICS}",
+        "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID_ANALYTICS}"
       }
     },
     "gsc": {
@@ -32,8 +31,8 @@
       "command": "C:\\Users\\zikob\\AppData\\Roaming\\Python\\Python314\\Scripts\\pipx.exe",
       "args": ["run", "--spec", "git+https://github.com/googleads/google-ads-mcp.git", "google-ads-mcp"],
       "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}",
-        "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID}",
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS_ADS}",
+        "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID_ADS}",
         "GOOGLE_ADS_DEVELOPER_TOKEN": "${GOOGLE_ADS_DEVELOPER_TOKEN}",
         "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "${GOOGLE_ADS_LOGIN_CUSTOMER_ID}"
       }
