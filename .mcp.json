@@ -36,6 +36,10 @@
         "GOOGLE_ADS_DEVELOPER_TOKEN": "${GOOGLE_ADS_DEVELOPER_TOKEN}",
         "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "${GOOGLE_ADS_LOGIN_CUSTOMER_ID}"
       }
+    },
+    "semrush": {
+      "type": "http",
+      "url": "https://mcp.semrush.com/claude/v1/mcp"
     }
   }
 }
