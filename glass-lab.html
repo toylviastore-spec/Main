@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glass Lab</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --blur: 16px;
+    --sat: 160%;
+    --fill: .18;          /* background opacity (12-25% reads well) */
+    --edge: .40;          /* border opacity */
+    --shine: .55;         /* top inner highlight */
+    --radius: 24px;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: #fff;
+    font-family: system-ui, sans-serif;
+    background:
+      radial-gradient(circle at 15% 20%, #ff7eb3 0 11%, transparent 12%),
+      radial-gradient(circle at 85% 22%, #7afcff 0 13%, transparent 14%),
+      radial-gradient(circle at 70% 85%, #feff9c 0 12%, transparent 13%),
+      radial-gradient(circle at 20% 80%, #a18cd1 0 14%, transparent 15%),
+      repeating-linear-gradient(90deg, transparent 0 58px, rgba(255,255,255,.14) 58px 60px),
+      linear-gradient(135deg, #1b2a6b, #2d1b4e 55%, #0f4c5c);
+    background-attachment: fixed;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 16px 48px; display: grid; gap: 24px; }
+  h1 { margin: 0; font-size: 28px; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+
+  /* ---------- the recipe ---------- */
+  .glass {
+    border-radius: var(--radius);
+    border: 1px solid rgb(255 255 255 / var(--edge));
+    background:
+      linear-gradient(145deg, rgb(255 255 255 / calc(var(--fill) + .10)), rgb(255 255 255 / calc(var(--fill) - .10)));
+    box-shadow:
+      0 12px 32px rgb(0 0 0 / .30),
+      inset 0 1px 0 rgb(255 255 255 / var(--shine)),
+      inset 0 -10px 20px rgb(255 255 255 / .05);
+    text-shadow: 0 1px 3px rgb(0 0 0 / .45);   /* keeps text above AA contrast on bright blobs */
+  }
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .glass { /* JS also sets the -webkit- prefixed value, since var() is unreliable there */
+      backdrop-filter: blur(var(--blur)) saturate(var(--sat));
+    }
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass { background: rgb(30 30 60 / .85); }   /* solid fallback */
+  }
+  /* respect users who ask for less transparency / motion */
+  @media (prefers-reduced-transparency: reduce) {
+    .glass { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgb(30 30 60 / .92); }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .card { padding: 22px; }
+  .card h2 { margin: 0 0 6px; font-size: 18px; }
+  .card p { margin: 0; font-size: 14px; line-height: 1.5; }
+
+  /* variants */
+  .tint-b { background: linear-gradient(145deg, rgb(90 160 255 / .45), rgb(90 160 255 / .10)); }
+  .tint-p { background: linear-gradient(145deg, rgb(255 120 200 / .45), rgb(255 120 200 / .10)); }
+  .dark   { background: linear-gradient(145deg, rgb(10 10 30 / .55), rgb(10 10 30 / .30)); }
+  .frost  { backdrop-filter: blur(28px) saturate(120%); background: rgb(255 255 255 / .22); }
+
+  /* Chromium-only refraction: SVG filter referenced from backdrop-filter */
+  .liquid { backdrop-filter: url(#refract) blur(2px) saturate(170%); -webkit-backdrop-filter: blur(6px) saturate(170%); }
+
+  /* ---------- controls ---------- */
+  .controls { padding: 22px; display: grid; gap: 12px; }
+  .controls label { display: grid; grid-template-columns: 110px 1fr 56px; align-items: center; gap: 10px; font-size: 14px; }
+  .controls output { text-align: right; font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; accent-color: #fff; }
+
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    padding: 14px 28px; color: #fff; font: 600 16px system-ui, sans-serif; cursor: pointer;
+    border-radius: 999px; transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: scale(.96); }
+  .btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  pre { margin: 0; padding: 16px; overflow: auto; font-size: 12.5px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="refract" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="4" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="38" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<main>
+  <h1>Glass Lab</h1>
+
+  <section class="glass card controls" aria-label="Controls">
+    <label>Blur <input type="range" id="blur" min="0" max="40" value="16"><output id="o-blur">16px</output></label>
+    <label>Saturation <input type="range" id="sat" min="100" max="250" value="160"><output id="o-sat">160%</output></label>
+    <label>Fill opacity <input type="range" id="fill" min="2" max="40" value="18"><output id="o-fill">18%</output></label>
+    <label>Edge opacity <input type="range" id="edge" min="0" max="80" value="40"><output id="o-edge">40%</output></label>
+    <label>Top shine <input type="range" id="shine" min="0" max="100" value="55"><output id="o-shine">55%</output></label>
+    <label>Radius <input type="range" id="radius" min="0" max="60" value="24"><output id="o-radius">24px</output></label>
+  </section>
+
+  <section class="row">
+    <article class="glass card"><h2>Clear glass</h2><p>Blur + saturate + soft border + inner top highlight. The base recipe.</p></article>
+    <article class="glass card tint-b"><h2>Blue tint</h2><p>A gradient tint keeps the glass feel while adding colour.</p></article>
+    <article class="glass card tint-p"><h2>Pink tint</h2><p>Same recipe, different tint gradient.</p></article>
+    <article class="glass card dark"><h2>Dark glass</h2><p>Darker overlay improves text contrast on busy backgrounds.</p></article>
+    <article class="glass card frost"><h2>Frosted</h2><p>Heavy blur, almost no see-through detail.</p></article>
+    <article class="glass card liquid"><h2>Liquid (Chromium)</h2><p>SVG displacement refracts what is behind. Other browsers fall back to blur.</p></article>
+  </section>
+
+  <section class="glass card">
+    <h2>Buttons</h2>
+    <div class="btn-row">
+      <button class="glass btn">Glass</button>
+      <button class="glass btn tint-b">Blue</button>
+      <button class="glass btn tint-p">Pink</button>
+      <button class="glass btn dark">Dark</button>
+    </div>
+  </section>
+
+  <section class="glass dark">
+<pre>.glass {
+  border-radius: 24px;
+  border: 1px solid rgb(255 255 255 / .4);
+  background: linear-gradient(145deg, rgb(255 255 255 / .28), rgb(255 255 255 / .08));
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 12px 32px rgb(0 0 0 / .3), inset 0 1px 0 rgb(255 255 255 / .55);
+}</pre>
+  </section>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const units = { blur: "px", sat: "%", fill: "%", edge: "%", shine: "%", radius: "px" };
+  const apply = () => {
+    const blur = getComputedStyle(root).getPropertyValue("--blur").trim();
+    const sat = getComputedStyle(root).getPropertyValue("--sat").trim();
+    document.querySelectorAll(".glass:not(.frost):not(.liquid)").forEach((el) => {
+      el.style.webkitBackdropFilter = `blur(${blur}) saturate(${sat})`;
+    });
+  };
+  const map = {
+    blur: (v) => root.style.setProperty("--blur", v + "px"),
+    sat: (v) => root.style.setProperty("--sat", v + "%"),
+    fill: (v) => root.style.setProperty("--fill", v / 100),
+    edge: (v) => root.style.setProperty("--edge", v / 100),
+    shine: (v) => root.style.setProperty("--shine", v / 100),
+    radius: (v) => root.style.setProperty("--radius", v + "px"),
+  };
+  for (const id in map) {
+    const input = document.getElementById(id);
+    const out = document.getElementById("o-" + id);
+    input.addEventListener("input", () => { map[id](input.value); out.textContent = input.value + units[id]; apply(); });
+  }
+  apply();
+</script>
+</body>
+</html>
