@@ -1,0 +1,85 @@
+{%- comment -%}
+  Curved banner shown under the "Just dropped" and "Best sellers of October" banners.
+  Render it in layout/theme.liquid right after the #tlv-best-sellers-banner div:
+    {% render 'tlv-curved-banner' %}
+  Edit the text and link here.
+{%- endcomment -%}
+{%- assign tlv_cb_title = 'New arrivals' -%}
+{%- assign tlv_cb_text = 'Fresh toys added every week.' -%}
+{%- assign tlv_cb_button = 'Shop now' -%}
+{%- assign tlv_cb_url = collections['new-arrivals'].url | default: '/collections/new-arrivals' -%}
+
+<section id="tlv-curved-banner" aria-label="{{ tlv_cb_title | escape }}">
+  <div class="tlv-cb__content">
+    <p class="tlv-cb__title">{{ tlv_cb_title }}</p>
+    <p class="tlv-cb__text">{{ tlv_cb_text }}</p>
+    <a class="tlv-cb__button" href="{{ tlv_cb_url }}">{{ tlv_cb_button }}</a>
+  </div>
+</section>
+
+<style id="tlv-curved-banner-css">
+  /* Rectangle with rounded right corners whose left edge is cut by a traced
+     curve. Two mask layers: the curve piece on the left and a plain fill for
+     the rest. Both scale with --h, so the curve keeps its proportions while
+     the straight part stretches. Widths and heights match the two banners above. */
+  html body #tlv-curved-banner {
+    --h: 251px;
+    --cw: calc(var(--h) * .96);
+    --curve: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 250' preserveAspectRatio='none'%3E%3Cpath d='M240 0L2.71 0L2.71 0.5L9.6 1.5L15.72 2.5L21.66 3.5L27.4 4.5L32.46 5.5L37.45 6.5L42.29 7.5L47.05 8.5L51.19 9.5L55.24 10.5L59.22 11.5L63.13 12.5L66.97 13.5L70.23 14.5L73.96 15.5L77.11 16.5L80.74 17.5L83.8 18.5L86.83 19.5L89.81 20.5L92.74 21.5L95.09 22.5L97.98 23.5L100.79 24.5L103.61 25.5L105.85 26.5L108.6 27.5L110.8 28.5L112.96 29.5L115.63 30.5L117.76 31.5L119.85 32.5L121.91 33.5L124.5 34.5L126.53 35.5L128.54 36.5L130.54 37.5L132.5 38.5L134.46 39.5L135.87 40.5L137.79 41.5L139.69 42.5L141.58 43.5L143.45 44.5L144.79 45.5L146.64 46.5L148.46 47.5L149.76 48.5L151.56 49.5L153.35 50.5L154.6 51.5L156.38 52.5L157.59 53.5L159.34 54.5L160.54 55.5L161.74 56.5L163.44 57.5L164.61 58.5L166.31 59.5L167.44 60.5L168.57 61.5L169.72 62.5L171.36 63.5L172.47 64.5L173.58 65.5L174.66 66.5L176.26 67.5L177.32 68.5L178.38 69.5L179.44 70.5L180.5 71.5L181.56 72.5L182.61 73.5L183.63 74.5L184.65 75.5L185.67 76.5L186.67 77.5L187.66 78.5L188.66 79.5L189.64 80.5L190.62 81.5L191.58 82.5L192.54 83.5L193.5 84.5L194.46 85.5L195.4 86.5L196.35 87.5L197.26 88.5L197.63 89.5L198.55 90.5L199.46 91.5L200.38 92.5L201.3 93.5L202.2 94.5L202.56 95.5L203.44 96.5L204.34 97.5L205.21 98.5L205.53 99.5L206.41 100.5L207.27 101.5L207.59 102.5L208.44 103.5L209.29 104.5L209.59 105.5L210.43 106.5L211.27 107.5L211.55 108.5L212.38 109.5L213.19 110.5L213.46 111.5L214.27 112.5L214.53 113.5L215.35 114.5L216.13 115.5L216.41 116.5L217.2 117.5L217.43 118.5L218.22 119.5L218.44 120.5L219.22 121.5L219.45 122.5L220.24 123.5L220.45 124.5L221.22 125.5L221.42 126.5L222.17 127.5L222.38 128.5L223.11 129.5L223.34 130.5L223.53 131.5L224.29 132.5L224.46 133.5L225.19 134.5L225.38 135.5L226.08 136.5L226.28 137.5L226.45 138.5L227.15 139.5L227.33 140.5L227.48 141.5L228.19 142.5L228.36 143.5L228.49 144.5L229.19 145.5L229.34 146.5L229.47 147.5L230.15 148.5L230.29 149.5L230.42 150.5L231.07 151.5L231.22 152.5L231.36 153.5L231.48 154.5L232.13 155.5L232.26 156.5L232.37 157.5L232.47 158.5L233.11 159.5L233.25 160.5L233.36 161.5L233.45 162.5L234.05 163.5L234.16 164.5L234.27 165.5L234.36 166.5L234.43 167.5L235.05 168.5L235.15 169.5L235.23 170.5L235.31 171.5L235.38 172.5L235.44 173.5L236.03 174.5L236.12 175.5L236.19 176.5L236.25 177.5L236.31 178.5L236.36 179.5L236.42 180.5L236.46 181.5L237.04 182.5L237.09 183.5L237.13 184.5L237.17 185.5L237.22 186.5L237.26 187.5L237.3 188.5L237.34 189.5L237.36 190.5L237.38 191.5L237.4 192.5L237.42 193.5L237.44 194.5L237.46 195.5L238 196.5L238 197.5L238.01 198.5L238.03 199.5L238.03 200.5L238.03 201.5L238.03 202.5L238.03 203.5L238.03 204.5L238.03 205.5L238 206.5L238 207.5L237.46 208.5L237.44 209.5L237.42 210.5L237.42 211.5L237.4 212.5L237.37 213.5L237.34 214.5L237.31 215.5L237.28 216.5L237.25 217.5L237.2 218.5L237.16 219.5L237.11 220.5L237.06 221.5L236.47 222.5L236.43 223.5L236.38 224.5L236.33 225.5L236.27 226.5L236.22 227.5L236.15 228.5L236.09 229.5L235.49 230.5L235.43 231.5L235.37 232.5L235.3 233.5L235.21 234.5L235.12 235.5L235.03 236.5L234.42 237.5L234.34 238.5L234.25 239.5L234.14 240.5L234.04 241.5L233.42 242.5L233.33 243.5L233.22 244.5L233.09 245.5L232.45 246.5L232.34 247.5L232.21 248.5L232.06 249.5L232.06 250L240 250Z'/%3E%3C/svg%3E");
+    position: relative;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 93.45%;
+    height: var(--h);
+    margin: 28px auto 32px;
+    padding: 0 40px 0 calc(var(--cw) + 20px);
+    border-radius: 0 30px 30px 0;
+    background: #000;
+    color: #fff;
+    line-height: 1.2;
+    -webkit-mask:
+      var(--curve) 0 0 / var(--cw) 100% no-repeat,
+      linear-gradient(#000 0 0) calc(var(--cw) - 1px) 0 / calc(100% - var(--cw) + 1px) 100% no-repeat;
+    mask:
+      var(--curve) 0 0 / var(--cw) 100% no-repeat,
+      linear-gradient(#000 0 0) calc(var(--cw) - 1px) 0 / calc(100% - var(--cw) + 1px) 100% no-repeat;
+  }
+  html body #tlv-curved-banner .tlv-cb__content { display: grid; gap: 10px; min-width: 0; }
+  html body #tlv-curved-banner p { margin: 0; color: #fff; }
+  html body #tlv-curved-banner .tlv-cb__title {
+    font: 900 italic 34px/1.08 'Nunito', sans-serif;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+  }
+  html body #tlv-curved-banner .tlv-cb__text { font: 500 15px/1.4 'Nunito', sans-serif; opacity: .8; }
+  html body #tlv-curved-banner .tlv-cb__button {
+    justify-self: start;
+    margin-top: 6px;
+    padding: 11px 22px;
+    border-radius: 999px;
+    background: #fff;
+    color: #000;
+    font: 800 13px/1 'Nunito', sans-serif;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s ease;
+  }
+  @media (hover: hover) { html body #tlv-curved-banner .tlv-cb__button:hover { transform: translateY(-2px); } }
+  html body #tlv-curved-banner .tlv-cb__button:focus-visible { outline: 2px solid #ff42a1; outline-offset: 3px; }
+
+  @media (min-width: 768px) and (max-width: 1199px) {
+    html body #tlv-curved-banner { --h: 190px; width: 98.7%; margin: 24px auto 28px; border-radius: 0 26px 26px 0; }
+    html body #tlv-curved-banner .tlv-cb__title { font-size: 26px; }
+    html body #tlv-curved-banner .tlv-cb__text { font-size: 13px; }
+  }
+  @media (max-width: 767px) {
+    html body #tlv-curved-banner { --h: 125px; width: calc(100% - 20px); margin: 20px auto 22px; padding: 0 14px 0 calc(var(--cw) + 8px); border-radius: 0 22px 22px 0; }
+    html body #tlv-curved-banner .tlv-cb__content { gap: 5px; }
+    html body #tlv-curved-banner .tlv-cb__title { font-size: 17px; }
+    html body #tlv-curved-banner .tlv-cb__text { font-size: 11px; }
+    html body #tlv-curved-banner .tlv-cb__button { margin-top: 3px; padding: 7px 12px; font-size: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html body #tlv-curved-banner .tlv-cb__button { transition: none; } }
+</style>
